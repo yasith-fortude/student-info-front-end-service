@@ -1,0 +1,36 @@
+<div>
+    <!-- student info data table -->
+    <kendo-grid
+        (cellClick)="editHandler($event)"
+        [data]="studentData"
+        (add)="addHandler($event)"
+    >
+        <ng-template kendoGridToolbarTemplate>
+            <button kendoGridAddCommand *ngIf="!isInEditingMode">Add student</button>
+            <div *ngIf="isInEditingMode">
+                <button class="k-button" [disabled]="!formGroup.valid" (click)="saveCurrent()">Save</button>
+                <button class="k-button k-primary" (click)="cancelHandler()">Cancel</button>
+            </div>
+        </ng-template>
+        <kendo-grid-column field="id" title="ID"></kendo-grid-column>
+        <kendo-grid-column field="firstName" title="First name"></kendo-grid-column>
+        <kendo-grid-column field="lastName" title="Last Name"></kendo-grid-column>
+        <kendo-grid-column field="gender" title="Gender"></kendo-grid-column>
+        <kendo-grid-column field="address" title="Address"> </kendo-grid-column>
+        <kendo-grid-column field="contact" title="Mobile"> </kendo-grid-column>
+        <kendo-grid-column field="dateOfBirth" title="Date of birth"></kendo-grid-column>
+        <kendo-grid-column field="age" title="Age"> </kendo-grid-column>
+        <kendo-grid-command-column title="Function">
+            <ng-template kendoGridCellTemplate>
+              <button kendoGridRemoveCommand (click)="remove($event)">Remove student</button>
+            </ng-template>
+        </kendo-grid-command-column>
+    </kendo-grid>
+
+    <!-- file upload components -->
+    <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+    <div class="file-upload">
+        {{ fileName || "No file uploaded yet." }}
+        <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">Upload</button>
+    </div>
+</div>
